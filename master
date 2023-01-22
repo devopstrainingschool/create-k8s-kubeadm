@@ -33,7 +33,7 @@ systemctl start kubelet
 systemctl enable kubelet
 
 # Initialize the cluster using kubeadm
-kubeadm init
+kubeadm init --ignore-preflight-errors=CRI
 
 # Configure kubectl
 mkdir -p $HOME/.kube
