@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Disable SELinux
-setenforce 0
-sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
-
 # Disable firewall
 systemctl disable firewalld
 systemctl stop firewalld
@@ -44,3 +40,5 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
+# Deploy the pod network
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
